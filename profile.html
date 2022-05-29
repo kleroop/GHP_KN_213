@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/main.css">
     <title>Register</title>
+    <script src="js/common.js"></script>
+    <script src="js/profile.js"></script>
+
 </head>
 <body>
     <div class="horizontal-wrapper">
@@ -28,7 +31,7 @@
                 <div>Characters written: 420</div>
 
                 <h2>Change password</h2>
-                <form class="input-block">
+                <form class="input-block" id="change-password-form">
                     <input class="input" type="password" name="password" placeholder="Old password" required>
                     <input class="input" type="password" name="newpassword1" placeholder="New password" required>
                     <input class="input" type="password" name="newpassword2" placeholder="Repeat new password" required>
@@ -38,15 +41,6 @@
                 </form>
 
 
-                <h2>Change info</h2>
-                <form class="input-block">
-                    <input class="input" type="text" name="fname" placeholder="first name" required>
-                    <input class="input" type="text" name="lname" placeholder="last name" required>
-
-                    <br>
-                    <br>
-                    <input class="submit-btn" type="submit" value="Save">
-                </form>
             </div>
         </section>
 

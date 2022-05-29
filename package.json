@@ -1,0 +1,29 @@
+{
+  "name": "weblabs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint **/*.js --ignore-pattern node_modules/",
+    "serve": "python -m http.server -b 127.0.0.1 8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kleroop/GHP_KN_213.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kleroop/GHP_KN_213/issues"
+  },
+  "homepage": "https://github.com/kleroop/GHP_KN_213#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.1"
+  }
+}
