@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="../styles/main.css">
     <title>Register</title>
-    <script src="js/common.js"></script>
-    <script src="js/login.js"></script>
 </head>
 <body>
     <div class="horizontal-wrapper">
@@ -17,21 +15,35 @@
                     <a href="index.html">Memo</a>
                 </div>
                 <div>
-                    <a href="register.html">Register</a>
+                    <a href="profile.html">Profile</a>
+                </div>
+                <div>
+                    <a href="memo.html">←Back</a>
                 </div>
             </nav>
         </header>
         <!-- main article-->
         <section>
             <div class="colbox">
-                <h2>Welcome back!</h2>
-                <form id="login-form" class="input-block">
+                <h2>Invite user</h2>
+                <form class="input-block">
                     <input class="input" type="text" name="username" placeholder="Username" required>
-                    <input class="input" type="password" name="password" placeholder="Password" required>
                     <br>
                     <br>
-                    <input class="submit-btn" type="submit" value="Log in">
+                    <input class="submit-btn" type="submit" value="Invite">
                 </form>
+                <h2>Remove user</h2>
+                <div class="colbox">
+                    <select>
+                        <option>user1</option>
+                        <option>user2</option>
+                    </select>
+                    <input class="submit-btn-critical" type="submit" value="Confirm">
+                </div>
+                <h2>Redacted log</h2>
+                <div class="colbox">
+                    <div>user1 <time>14:00</time></div>
+                </div>
             </div>
         </section>
 
