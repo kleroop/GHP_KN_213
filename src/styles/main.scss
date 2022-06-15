@@ -1,4 +1,4 @@
-@import "colors.css";
+@import "colors.scss";
 
 * {
   box-sizing: border-box;
@@ -183,6 +183,7 @@ a {
 .submit-btn-critical {
   @extend .submit-btn;
   background-color: $red;
+  margin-top: 5px;
 
   &:hover {
     color: $lightgreen;
@@ -192,6 +193,7 @@ a {
 
 .memo-block {
   @extend .colbox;
+  position: relative;
   width: auto;
   height: 100px;
   max-width: 300px;
@@ -201,6 +203,7 @@ a {
   border: 0;
   margin: 3px;
   overflow-x: auto;
+  padding: 5px;
 
 
   .div {
@@ -243,3 +246,31 @@ a {
   text-align: center;
 }
 
+.create_btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 0.5em;
+  &:hover {
+    background-color: $lightgreen;
+    transform: scale(1.1);
+  }
+}
+
+.memo-tag {
+  margin-top: 5px;
+  margin-bottom: 8px;
+}
+
+.memo-manage{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}

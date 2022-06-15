@@ -177,6 +177,7 @@ a:link, a:visited {
 }
 .submit-btn-critical {
   background-color: red;
+  margin-top: 5px;
 }
 .submit-btn-critical:hover {
   color: #54D880;
@@ -184,6 +185,7 @@ a:link, a:visited {
 }
 
 .memo-block {
+  position: relative;
   width: auto;
   height: 100px;
   max-width: 300px;
@@ -193,6 +195,7 @@ a:link, a:visited {
   border: 0;
   margin: 3px;
   overflow-x: auto;
+  padding: 5px;
 }
 .memo-block .div {
   text-align: center;
@@ -224,6 +227,35 @@ a:link, a:visited {
   width: 100%;
   position: absolute;
   text-align: center;
+}
+
+.create_btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 0.5em;
+}
+.create_btn:hover {
+  background-color: #54D880;
+  transform: scale(1.1);
+}
+
+.memo-tag {
+  margin-top: 5px;
+  margin-bottom: 8px;
+}
+
+.memo-manage {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 /*# sourceMappingURL=main.css.map */

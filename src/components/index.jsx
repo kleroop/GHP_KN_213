@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
 import Navbar from './shared/navbar';
-import {app_logged_in} from '../common';
+import {app_getuser} from '../common';
 
 export default class Index extends Component {
 
     constructor(props) {
         super(props);
-        if (app_logged_in()) {
+        if (app_getuser()) {
             this.state = {
                 navLinks: [
                     {
                         href: '/profile',
-                        name: 'Profile'
+                        name: localStorage.getItem('username')
                     }
                 ],
-                homeUrl: '/memo'
+                homeUrl: '/home'
             };
         } else {
             this.state = {
@@ -55,15 +55,7 @@ export default class Index extends Component {
                                     <a href="register.html">Register now and be productive!</a>
                                 </div>
                             </article>
-                            <div className="colbox">
-                                <a href="login.html">login</a>
-                                <a href="admin.html">admin</a>
-                                <a href="register.html">register</a>
-                                <a href="profile.html">profile</a>
-                                <a href="memo.html">memo</a>
-                                <a href="manage.html">invite</a>
-                                <a href="home.html">home</a>
-                            </div>
+
                         </div>
                     </section>
 

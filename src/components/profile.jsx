@@ -1,31 +1,49 @@
 import React, {Component} from 'react';
 import Navbar from './shared/navbar';
-import {app_notification, api_chpassword, api_deluser, api_logout, app_logout} from '../common';
+import {
+    app_notification,
+    api_chpassword,
+    api_deluser,
+    api_logout,
+    app_logout,
+    app_getuser,
+    api_user_stats
+} from '../common';
 
 
 export default class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            homeUrl: '/index',
+            homeUrl: '/home',
             navLinks: [
-                {
-                    name: 'Home',
-                    href: '/home'
-                },
                 {
                     name: 'Log out',
                     href: '/logout'
-                }
-            ]
+                },
+            ],
+            stats: {
+                memoIdsOwner: [],
+                memoIdsMember: []
+            }
         };
+        if (!app_getuser()) {
+            window.location.href = '/index';
+        }
+        this.state.username = app_getuser().username;
+    }
+
+    async componentDidMount() {
+       this.state.stats = await (await api_user_stats(app_getuser().sub)).json();
+       console.log(this.state);
+       this.forceUpdate();
     }
 
     async handle_deluser(e) {
         e.preventDefault();
         await api_deluser();
         await app_logout();
-        window.location.href = "/index";
+        window.location.href = '/index';
     }
 
     async handle_submit(e) {
@@ -57,10 +75,11 @@ export default class Profile extends Component {
                 <Navbar home={this.state.homeUrl} links={this.state.navLinks}/>
                 <section>
                     <div className="colbox">
-                        <h2>Statistics</h2>
-                        <div>Total memos: 42</div>
-                        <div>Memos created: 56</div>
-                        <div>Characters written: 420</div>
+                        <h2>Username</h2>
+                        <div>{this.state.username}</div>
+                        <h2>Statistics</h2> { /* todo*/}
+                        <div>Memos created: {this.state.stats.memoIdsOwner.length}</div>
+                        <div>Memos member: {this.state.stats.memoIdsMember.length}</div>
 
                         <h2>Change password</h2>
                         <form className="input-block" id="change-password-form"
