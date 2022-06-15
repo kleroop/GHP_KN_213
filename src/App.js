@@ -7,6 +7,9 @@ import Register from './components/register';
 import Logout from './components/logout';
 import Profile from './components/profile';
 import Admin from './components/admin';
+import Home from './components/home';
+import Memo from './components/memo';
+import Manage from './components/manage';
 
 
 export default function App() {
@@ -18,8 +21,11 @@ export default function App() {
             <Route path="register" element={<Register/>}/>
             <Route path="logout" element={<Logout/>}/>
             <Route path="profile" element={<Profile/>}/>
-            <Route path="memo" element={<Profile/>}/>
+            <Route path="memo" element={<Memo/>}/>
+            <Route path="memo/:id" element={<Memo/>}/>
+            <Route path="home" element={<Home/>}/>
             <Route path="admin" element={<Admin/>}/>
+            <Route path="manage/:id" element={<Manage/>}/>
             <Route path="*" element={<Navigate to="/"/>}/>
         </Routes>
     );

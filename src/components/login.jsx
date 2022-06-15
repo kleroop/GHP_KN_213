@@ -19,22 +19,10 @@ export default class Login extends Component {
     async handle_submit(e) {
         e.preventDefault();
         const form = e.target.elements;
-        let resp;
-        let res;
-        try {
-            resp = await api_login(form.username.value, form.password.value);
-            res = await resp.json();
-        } catch (err) {
-            app_notification('No internet connection');
-            return false;
+        const res = await app_login(form.username.value, form.password.value);
+        if (res) {
+            window.location.href = '/home';
         }
-        if (!resp.ok) {
-            app_notification(res.description);
-            return false;
-        }
-        console.log(resp);
-        await app_login(res.token1);
-        window.location.href = '/home';
         return false;
     }
 

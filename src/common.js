@@ -23,9 +23,11 @@ export function app_notification(message, timeout = 5000) {
 
 export async function create_request(url, method, params) {
     url = `http://localhost:8080${url}`;
+    let jwt = localStorage.getItem('admin_jwt');
+    if (jwt === null) jwt = localStorage.getItem('jwt');
     const headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        'Authorization': `Bearer ${jwt}`
     };
 
 
@@ -77,16 +79,103 @@ export async function app_logout() {
     localStorage.removeItem('user_id');
 }
 
-export async function app_login(token) {
-    const p = parseJwt(token);
-    if (localStorage.getItem('jwt')) {
+
+export async function app_login(username, password) {
+    let resp, res;
+    try {
+        resp = await api_login(username, password);
+        res = await resp.json();
+    } catch (err) {
+        app_notification('No internet connection');
+        return false;
+    }
+    if (!resp.ok) {
+        app_notification(res.description);
+        return false;
+    }
+    console.log(resp);
+    const p = parseJwt(res.token1);
+    if (app_getuser()) {
         await app_logout();
     }
-    localStorage.setItem('jwt', token);
+    localStorage.setItem('jwt', res.token1);
     localStorage.setItem('user_id', p.sub);
+    localStorage.setItem('username', username);
+    return true;
 }
 
-export function app_logged_in() {
-    return localStorage.getItem('jwt') !== null;
+export function app_getuser() {
+    if (localStorage.getItem('jwt') === null) {
+        return null;
+    }
+    const r = parseJwt(localStorage.getItem('jwt'));
+    console.log(r);
+    return r;
 }
 
+export async function api_admin_login(username) {
+    return create_request('/admin/login', 'GET', {username});
+}
+
+export async function app_admin_login(username) {
+    let resp, res;
+    try {
+        resp = await api_admin_login(username);
+        res = await resp.json();
+    } catch (err) {
+        app_notification('No internet connection');
+        return false;
+    }
+    if (!resp.ok) {
+        app_notification(res.description);
+        return false;
+    }
+    console.log(resp);
+    const p = parseJwt(res.token1);
+    if (app_getuser()) {
+        await app_logout();
+    }
+    localStorage.setItem('jwt', res.token1);
+    localStorage.setItem('user_id', p.sub);
+    localStorage.setItem('username', p.username);
+    return true;
+}
+
+export async function api_user_stats(id) {
+    return create_request(`/user/${id}`, 'GET');
+}
+
+export async function api_get_memo(id) {
+    return create_request(`/memo/${id}`, 'GET');
+}
+
+
+export async function api_create_memo(tag, text) {
+    return create_request(`/memo`, 'POST', {tag, text});
+}
+
+export async function api_edit_memo(id, tag, text) {
+    return create_request(`/memo/${id}`, 'PUT', {tag, text});
+}
+
+
+export async function api_delete_memo(id) {
+    return create_request(`/memo/${id}`, 'DELETE');
+}
+
+export async function api_get_perms(id) {
+    return create_request(`/permission/${id}`, 'GET');
+}
+
+/**
+ *
+ * @param id
+ * @param access {number[]}
+ * @returns {Promise<Response|null>}
+ */
+export async function api_set_perms(id, access) {
+    let s = '';
+    if (access) access.join(',');
+
+    return create_request(`/permission/${id}`, 'PUT', {usersWithAccess: s});
+}

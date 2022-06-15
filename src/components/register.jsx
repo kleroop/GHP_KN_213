@@ -38,10 +38,9 @@ export default class Register extends Component {
         }
         console.log(resp);
         console.log(res);
-        resp = await api_login(form.username.value, form.password.value);
-        res = await resp.json();
-        await app_login(res.token1);
-        window.location.href = '/home';
+        if(await app_login(form.username.value, form.password.value)) {
+            window.location.href = '/home';
+        }
         return false;
     }
 
