@@ -4,7 +4,7 @@ import {
     api_delete_memo,
     api_get_memo,
     api_get_perms,
-    api_set_perms,
+    api_set_perms, api_user_from_username,
     api_user_stats,
     app_getuser,
     app_notification
@@ -55,15 +55,19 @@ export default class Manage extends Component {
     }
 
     async reload_user_members() {
+        this.user_members = [];
         const resp = await api_get_perms(this.memo_id);
         this.state.members = (await resp.json()).usersWithAccess;
         for (const id of this.state.members) {
-            const resp = api_user_stats(id);
+            const resp = await api_user_stats(id);
             if (resp.ok) {
                 const res = await resp.json();
                 this.user_members.push(res);
             }
         }
+        console.log('State');
+        console.log(this.state.members);
+        console.log(this.user_members);
         this.forceUpdate();
     }
 
@@ -92,11 +96,10 @@ export default class Manage extends Component {
     async handleInvite(e) {
         e.preventDefault();
         const form = e.target.elements;
-        const id = form.username.value;
-        const resp = await api_user_stats(id);
+        const uname = form.username.value;
+        const resp = await api_user_from_username(uname);
         const res = await resp.json();
         if (!resp.ok) {
-            await this.reload_user_members();
             app_notification(resp.description);
             return;
         }
@@ -109,6 +112,8 @@ export default class Manage extends Component {
         const form = e.target.elements;
         const uname = form.username.value;
         this.user_members = this.user_members.filter((v) => v.username !== uname);
+        console.log('Remove:');
+        console.log(this.user_members);
         await this.syncPerms();
     }
 

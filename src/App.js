@@ -10,6 +10,7 @@ import Admin from './components/admin';
 import Home from './components/home';
 import Memo from './components/memo';
 import Manage from './components/manage';
+import ChatRoom from './components/chatroom';
 
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
             <Route path="home" element={<Home/>}/>
             <Route path="admin" element={<Admin/>}/>
             <Route path="manage/:id" element={<Manage/>}/>
+            <Route path="chatroom" element={<ChatRoom/>}/>
             <Route path="*" element={<Navigate to="/"/>}/>
         </Routes>
     );

@@ -22,6 +22,10 @@ export default class Home extends Component {
             homeUrl: '/home',
             navLinks: [
                 {
+                    name: "Chat",
+                    href: '/chatroom'
+                },
+                {
                     name: app_getuser().username,
                     href: '/profile'
                 }
