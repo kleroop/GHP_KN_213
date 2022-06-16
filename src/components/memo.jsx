@@ -45,12 +45,11 @@ export default class Memo extends Component {
 
             const mresp = await api_get_memo(this.memo_id);
             if (!mresp.ok) {
+                debugger;
                 window.location.href = '/index';
             }
             const mdata = await mresp.json();
             this.state.data = mdata;
-            const resp = await api_get_perms(this.memo_id);
-            if (!resp.ok) window.location.href = '/index';
             this.state.readonly = false;
             tag_input.value = mdata.tag;
             textarea_input.value = mdata.text;

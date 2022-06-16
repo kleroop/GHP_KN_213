@@ -21,8 +21,10 @@ export function app_notification(message, timeout = 5000) {
     document.body.appendChild(notification);
 }
 
+export const BASE_URL = 'http://localhost:8080';
+
 export async function create_request(url, method, params) {
-    url = `http://localhost:8080${url}`;
+    url = `${BASE_URL}${url}`;
     let jwt = localStorage.getItem('admin_jwt');
     if (jwt === null) jwt = localStorage.getItem('jwt');
     const headers = {
@@ -145,6 +147,11 @@ export async function api_user_stats(id) {
     return create_request(`/user/${id}`, 'GET');
 }
 
+export async function api_user_from_username(username) {
+    return create_request(`/username/${username}`, 'GET');
+}
+
+
 export async function api_get_memo(id) {
     return create_request(`/memo/${id}`, 'GET');
 }
@@ -175,7 +182,6 @@ export async function api_get_perms(id) {
  */
 export async function api_set_perms(id, access) {
     let s = '';
-    if (access) access.join(',');
-
+    if (access.length) s = access.join(',');
     return create_request(`/permission/${id}`, 'PUT', {usersWithAccess: s});
 }
